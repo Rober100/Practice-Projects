@@ -15,6 +15,6 @@ export const Notes = [
     id: 3,
     content: "GET and POST are the most important methds fo HTML",
     date: "2023",
-    import: true,
+    import: false,
   },
 ];

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import Mensaje from "./Mensaje";
 import List from "./components/List";
-import Form from "./components/Form";
 
 const Descripcion = () => {
   return <p>Estoy probando todo de nuevo</p>;
@@ -82,7 +81,6 @@ function App() {
       <p>Clicks Totales: {clicks.length}</p>
       <hr />
       <List />
-      <Form />
     </>
   );
 }
