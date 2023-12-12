@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Notes } from "./Notes.jsx";
 
 const Form = () => {
-  const [notes, setNotes] = useState(Notes);
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
 
@@ -18,9 +17,8 @@ const Form = () => {
     event.preventDefault();
     const newNoteToState = {
       id: notes.length + 1,
-      content: newNote,
-      date: new Date().toISOString(),
-      import: Math.random() < 0.5,
+      title: newNote,
+      albumId: Math.round(Math.random()),
     };
     setNewNote("");
     setNotes(notes.concat(newNoteToState));
@@ -45,8 +43,8 @@ const Form = () => {
           .map((notes) => {
             return (
               <li key={notes.id}>
-                <p>{notes.content}</p>
-                <small>{notes.date}</small>
+                <p>Título: {notes.title}</p>
+                <small>Numero de Albúm: {notes.albumId}</small>
               </li>
             );
           })}

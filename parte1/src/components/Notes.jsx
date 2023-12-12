@@ -1,20 +1,23 @@
 export const Notes = [
   {
+    albumId: 1,
     id: 1,
-    content: "HTML is easy",
-    date: "2023",
-    import: true,
+    title: "accusamus beatae ad facilis cum similique qui sunt",
+    url: "https://via.placeholder.com/600/92c952",
+    thumbnailUrl: "https://via.placeholder.com/150/92c952",
   },
   {
+    albumId: 1,
     id: 2,
-    content: "Browser can execute only JavaScript",
-    date: "2023",
-    import: true,
+    title: "reprehenderit est deserunt velit ipsam",
+    url: "https://via.placeholder.com/600/771796",
+    thumbnailUrl: "https://via.placeholder.com/150/771796",
   },
   {
+    albumId: 1,
     id: 3,
-    content: "GET and POST are the most important methds fo HTML",
-    date: "2023",
-    import: false,
+    title: "officia porro iure quia iusto qui ipsa ut modi",
+    url: "https://via.placeholder.com/600/24f355",
+    thumbnailUrl: "https://via.placeholder.com/150/24f355",
   },
 ];
