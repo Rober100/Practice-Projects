@@ -1,13 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import Mensaje from "./Mensaje";
-import List from "./components/List";
+import Form from "./components/Form";
 
-const Descripcion = () => {
-  return <p>Estoy probando todo de nuevo</p>;
-};
-
-function App() {
+const App = () => {
   const [counters, setCounters] = useState({
     left: 0,
     right: 0,
@@ -56,7 +52,6 @@ function App() {
     <>
       <Mensaje color="red" message="Prueba" />
       <Mensaje message="Noches" />
-      <Descripcion />
       <h1>A ver ahora</h1>
       {/* <h2>{contador}</h2>
       <p>{mensajePar}</p>
@@ -80,9 +75,10 @@ function App() {
       <p>{clicks.join(" - ")}</p>
       <p>Clicks Totales: {clicks.length}</p>
       <hr />
-      <List />
+      <Form />
+      
     </>
   );
-}
+};
 
 export default App;

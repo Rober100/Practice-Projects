@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Form = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const [showAll, setShowAll] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  if (typeof notes === "undefined" || notes.length === 0) {
-    return "No tenemos notas que mostrar";
-  }
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://jsonplaceholder.typicode.com/photos")
+      .then((response) => response.json())
+      .then((json) => {
+        setNotes(json);
+      });
+      setLoading(false)
+  }, []);
 
   const handleChange = (event) => {
     setNewNote(event.target.value);
@@ -24,23 +30,13 @@ const Form = () => {
     setNotes(notes.concat(newNoteToState));
   };
 
-  const handleShowAll = () => {
-    setShowAll(() => !showAll);
-  };
-
   return (
     <div>
-      <h1>Notes</h1>
-      <button onClick={handleShowAll}>
-        {showAll ? "Mostrar solo importante" : "Mostrar todo"}
-      </button>
-      <ol>
-        {notes
-          .filter((note) => {
-            if (showAll) return note;
-            return note.import === true;
-          })
-          .map((notes) => {
+      <div>
+        <h1>Notes</h1>
+        {loading ? "Cargando...." : ""}
+        <ol>
+          {notes.map((notes) => {
             return (
               <li key={notes.id}>
                 <p>Título: {notes.title}</p>
@@ -48,7 +44,9 @@ const Form = () => {
               </li>
             );
           })}
-      </ol>
+        </ol>
+      </div>
+      <h1>Crea tu propia Nota</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" value={newNote} onChange={handleChange} />
         <button>Crear Nota</button>
