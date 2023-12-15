@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Form = () => {
   const [notes, setNotes] = useState([]);
@@ -7,13 +8,13 @@ const Form = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((response) => response.json())
-      .then((json) => {
-        setNotes(json);
+    axios
+      .get("https://jsonplaceholder.typicode.com/photos")
+      .then((response) => {
+        setNotes(response.data);
+        setLoading(false);
       });
-      setLoading(false)
-  }, []);
+  }, [newNote]);
 
   const handleChange = (event) => {
     setNewNote(event.target.value);
@@ -34,7 +35,7 @@ const Form = () => {
     <div>
       <div>
         <h1>Notes</h1>
-        {loading ? "Cargando...." : ""}
+        {loading ? "Cargando......" : ""}
         <ol>
           {notes.map((notes) => {
             return (
