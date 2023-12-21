@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
 
+app.use(express.json())
+
 let Notes = [
     {
         albumId: 1,
@@ -42,7 +44,6 @@ app.get("/notes", (request, response) => {
 
 app.get("/notes/:id", (request, response) => {
     const id = Number(request.params.id)
-    console.log(id);
     const note = Notes.find(note => note.id === id)
 
     if (note) {
@@ -54,6 +55,20 @@ app.get("/notes/:id", (request, response) => {
 
 })
 
+app.post("/create", (request, response) => {
+    const note = request.body
+
+    const ids = Notes.length
+
+    const newNote = {
+        albumId: 1,
+        id: ids + 1,
+        title: note.title
+    }
+
+    Notes = [...Notes, newNote]
+    response.status(200).send("Nota agrega con éxito")
+})
 
 
 const PORT = 3001
