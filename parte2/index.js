@@ -35,7 +35,7 @@ let Notes = [
 // })
 
 app.get("/", (request, response) => {
-    response.send("<h1>Hello World</h1>")
+    response.send("<h1>Hola, Funciono correctamente</h1>")
 })
 
 app.get("/notes", (request, response) => {
@@ -58,16 +58,32 @@ app.get("/notes/:id", (request, response) => {
 app.post("/create", (request, response) => {
     const note = request.body
 
-    const ids = Notes.length
+    const ids = Notes.map((note) => note.id)
+    const maxId = Math.max(...ids)
 
     const newNote = {
         albumId: 1,
-        id: ids + 1,
+        id: maxId + 1,
         title: note.title
     }
 
     Notes = [...Notes, newNote]
-    response.status(200).send("Nota agrega con éxito")
+    response.status(201).send("Nota agrega con éxito")
+})
+
+app.put("/delete", (request, response) => {
+    const noteBody = request.body
+
+    const newNotes = Notes.filter((note) => note.id !== noteBody.id)
+
+    Notes = newNotes
+    response.status(201).send("Elemento borrado correctamente")
+})
+
+app.use((request, response) => {
+    response.status(404).json({
+        error: "Not Found"
+    })
 })
 
 
