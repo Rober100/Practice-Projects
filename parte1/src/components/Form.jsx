@@ -8,19 +8,21 @@ const Form = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get("https://jsonplaceholder.typicode.com/photos")
-      .then((response) => {
-        setNotes(response.data);
-        setLoading(false);
-      });
+    axios.get("http://localhost:3001/notes")
+    .then((response) => {
+      setNotes(response.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.log("Error fetching notes:", error);
+    })
   }, [newNote]);
 
   const handleChange = (event) => {
     setNewNote(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const newNoteToState = {
       id: notes.length + 1,
@@ -28,7 +30,15 @@ const Form = () => {
       albumId: Math.round(Math.random()),
     };
     setNewNote("");
-    setNotes(notes.concat(newNoteToState));
+    axios.post("http://localhost:3001/create",newNoteToState)
+    .then((response) => {
+      console.log(response);
+      window.alert("Nota envida con éxito")
+    })
+    .catch((error) => {
+      console.log("Error creating note:", error);
+    })
+    setNotes([...notes, newNoteToState]);
   };
 
   return (
