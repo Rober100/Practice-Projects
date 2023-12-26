@@ -29,13 +29,6 @@ let Notes = [
     },
 ];
 
-//const http = require("http")
-
-// const app = http.createServer((request, response) => {
-//     response.writeHead(200, { "Content-Type": "text/plain" })
-//     response.end("Hello World")
-// })
-
 app.get("/", (request, response) => {
     response.send("<h1>Hola, Funciono correctamente</h1>")
 })
@@ -60,12 +53,11 @@ app.get("/notes/:id", (request, response) => {
 app.post("/create", (request, response) => {
     const note = request.body
 
-    const ids = Notes.map((note) => note.id)
-    const maxId = Math.max(...ids)
+
 
     const newNote = {
         albumId: 1,
-        id: maxId + 1,
+        id: note.id,
         title: note.title
     }
 
@@ -73,10 +65,10 @@ app.post("/create", (request, response) => {
     response.status(201).send("Nota agrega con éxito")
 })
 
-app.put("/delete", (request, response) => {
-    const noteBody = request.body
+app.put("/delete/:id", (request, response) => {
+    const id = parseInt(request.params.id)
 
-    const newNotes = Notes.filter((note) => note.id !== noteBody.id)
+    const newNotes = Notes.filter((note) => note.id !== id)
 
     Notes = newNotes
     response.status(201).send("Elemento borrado correctamente")
