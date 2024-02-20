@@ -1,42 +1,27 @@
 const express = require("express")
 const app = express()
+const mongoose = require("mongoose")
 const cors = require("cors")
+const connectDB = require("./mongo.js")
+const Note = require("./models/Note.js")
 
-
+// Conexión a MongoDB
+connectDB();
 
 app.use(express.json())
 app.use(cors())
 
-let Notes = [
-    {
-        albumId: 1,
-        id: 1,
-        title: "accusamus beatae ad facilis cum similique qui sunt",
-        url: "https://via.placeholder.com/600/92c952",
-        thumbnailUrl: "https://via.placeholder.com/150/92c952",
-    },
-    {
-        albumId: 1,
-        id: 2,
-        title: "reprehenderit est deserunt velit ipsam",
-        url: "https://via.placeholder.com/600/771796",
-        thumbnailUrl: "https://via.placeholder.com/150/771796",
-    },
-    {
-        albumId: 1,
-        id: 3,
-        title: "officia porro iure quia iusto qui ipsa ut modi",
-        url: "https://via.placeholder.com/600/24f355",
-        thumbnailUrl: "https://via.placeholder.com/150/24f355",
-    },
-];
+// let Note = [];
 
 app.get("/", (request, response) => {
     response.send("<h1>Hola, Funciono correctamente</h1>")
 })
 
 app.get("/notes", (request, response) => {
-    response.json(Notes)
+    Note.find({}).then(notes => {
+        response.json(notes)
+        mongoose.connection.close()
+    })
 })
 
 app.get("/notes/:id", (request, response) => {
